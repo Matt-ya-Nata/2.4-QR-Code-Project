@@ -1,7 +1,7 @@
 
 
 import inquirer from "inquirer";
-var qr = require('qr-image');
+import qr from "qr-image";
 
 inquirer
   .prompt([
@@ -11,6 +11,8 @@ inquirer
   ])
   .then((answers) => {
     const url = answers.URL;
+    var qr_svg = qr.image(url);
+    qr_svg.pipe(require('fs').createWriteStream('QR_IMG_PNG'));
   })
   .catch((error) => {
     if (error.isTtyError) {
